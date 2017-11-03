@@ -127,16 +127,54 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void update(View v)
-    {
+    public void update(View v) {
 
-        boolean chk= mySqlite.UpdateData(txtID.getText().toString(),txtName.getText().toString(),txtEmail.getText().toString());
-        if (chk==true)
-            Toast.makeText(this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Data Not Updated", Toast.LENGTH_SHORT).show();
+        String id = txtID.getText().toString();
+        String name = txtName.getText().toString();
+        String email = txtEmail.getText().toString();
+
+        if (name.isEmpty()) {
+
+            txtName.setError("Name can't be empty !");
+            requestFocus(txtName);
+
+        }
+
+        //Checking password field/validation
+        else if (id.isEmpty()) {
+
+            txtID.setError("ID can't be empty !");
+            requestFocus(txtID);
+
+        } else if (email.isEmpty()) {
+
+            txtEmail.setError("Email can't be empty !");
+            requestFocus(txtEmail);
+
+        } else if (!email.contains("@") ) {
+
+            txtEmail.setError("Email is not correct !");
+            requestFocus(txtEmail);
+
+
+
+        }
+
+        else if (!email.contains(".") ) {
+
+            txtEmail.setError("Email is not correct !");
+            requestFocus(txtEmail);
+        }
+
+        else {
+
+            boolean chk = mySqlite.UpdateData(id, name, email);
+            if (chk == true)
+                Toast.makeText(this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, "Data Not Updated", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
 
 
